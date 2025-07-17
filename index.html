@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome | Birthday Surprise</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        body.landing {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(135deg, #87ceeb 0%, #e0f7fa 100%);
+            position: relative;
+            overflow-x: hidden;
+            overflow-y: auto;
+            text-align: center;
+            cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32"><polygon points="16,2 20,12 31,12 22,19 25,30 16,23 7,30 10,19 1,12 12,12" fill="%23ffd700" stroke="%23e6b800" stroke-width="2"/></svg>') 16 16, auto;
+            scrollbar-width: thin;
+            scrollbar-color: #1976d2 #e0f7fa;
+        }
+        
+        body.landing::-webkit-scrollbar {
+            width: 12px;
+            background: #e0f7fa;
+        }
+        body.landing::-webkit-scrollbar-thumb {
+            background: linear-gradient(135deg, #1976d2 0%, #64b5f6 100%);
+            border-radius: 8px;
+            border: 2px solid #e0f7fa;
+        }
+        body.landing::-webkit-scrollbar-thumb:hover {
+            background: linear-gradient(135deg, #64b5f6 0%, #1976d2 100%);
+        }
+        .landing-title, .landing-desc, .landing-desc2, .landing-btn {
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+            text-align: center;
+            max-width: 600px;
+            margin-bottom: 0.5em;
+        }
+        .landing-title {
+            font-family: 'Poppins', 'Segoe UI', Arial, sans-serif;
+            font-size: 3rem;
+            font-weight: 800;
+            color: #1976d2;
+            margin-top: 80px;
+            margin-bottom: 18px;
+            letter-spacing: 1px;
+            text-shadow: 0 2px 8px rgba(25, 118, 210, 0.08);
+            animation: fadeIn 1s ease forwards;
+            opacity: 0;
+            animation-delay: 0.2s;
+        }
+        
+        .landing-title::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 0;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+            animation: typewriter 3s steps(20) 0.2s forwards;
+        }
+        
+        @keyframes typewriter {
+            to { width: 100%; }
+        }
+        
+        @keyframes glowText {
+            from { text-shadow: 0 2px 8px rgba(25, 118, 210, 0.08), 0 0 20px rgba(25, 118, 210, 0.3); }
+            to { text-shadow: 0 2px 8px rgba(25, 118, 210, 0.08), 0 0 30px rgba(25, 118, 210, 0.6), 0 0 40px rgba(25, 118, 210, 0.4); }
+        }
+        .landing-desc {
+            font-family: 'Poppins', 'Segoe UI', Arial, sans-serif;
+            font-size: 1.25rem;
+            color: #1976d2;
+            margin-bottom: 10px;
+            font-weight: 500;
+        }
+        .landing-desc2 {
+            font-size: 1.08rem;
+            margin-bottom: 32px;
+            color: #333;
+            font-style: italic;
+            font-family: 'Georgia', 'Times New Roman', serif;
+            text-align: center;
+        }
+        .landing-desc3 {
+            font-size: 1.5rem;
+            color: #1976d2;
+            margin-bottom: 22px;
+            font-family: 'Poppins', 'Segoe UI', Arial, sans-serif;
+            max-width: 750px;
+            margin-left: auto;
+            margin-right: auto;
+            letter-spacing: 0.5px;
+            animation: fadeIn 1s ease forwards;
+            opacity: 0;
+            animation-delay: 0.8s;
+        }
+        
+        @keyframes gradientText {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+        
+        @keyframes slideInUp {
+            from { transform: translateY(50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        .landing-btn {
+            background: linear-gradient(90deg, #64b5f6, #1976d2);
+            color: white;
+            border: none;
+            border-radius: 32px;
+            padding: 20px 48px;
+            font-size: 1.3rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: background 0.2s, transform 0.2s, box-shadow 0.2s;
+            box-shadow: 0 8px 32px rgba(25, 118, 210, 0.15);
+            font-family: 'Poppins', 'Segoe UI', Arial, sans-serif;
+            margin-top: 16px;
+            text-decoration: none;
+            animation: fadeIn 1s ease forwards;
+            opacity: 0;
+            animation-delay: 2.0s;
+        }
+        
+        .landing-btn:hover {
+            background: linear-gradient(90deg, #1976d2, #64b5f6);
+            transform: translateY(-2px) scale(1.04);
+            box-shadow: 0 12px 40px rgba(25, 118, 210, 0.22);
+        }
+        
+        @keyframes pulseGlow {
+            0%, 100% { box-shadow: 0 8px 32px rgba(25, 118, 210, 0.15), 0 0 20px rgba(25, 118, 210, 0.2); }
+            50% { box-shadow: 0 8px 32px rgba(25, 118, 210, 0.15), 0 0 30px rgba(25, 118, 210, 0.4); }
+        }
+        @media (max-width: 600px) {
+            .landing-title { font-size: 2rem; }
+            .landing-btn { font-size: 1rem; padding: 14px 24px; }
+        }
+        .stars {
+            position: fixed;
+            top: 0; left: 0; width: 100vw; height: 100vh;
+            pointer-events: none;
+            z-index: 0;
+        }
+        .star {
+            position: absolute;
+            width: 3px;
+            height: 3px;
+            background: white;
+            border-radius: 50%;
+            box-shadow: 0 0 8px 2px #fff7;
+            opacity: 0.8;
+            animation: twinkle 2s infinite ease-in-out;
+        }
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.8; }
+            50% { opacity: 0.2; }
+        }
+        a.landing-btn, a .landing-btn {
+            text-decoration: none !important;
+            display: inline-block;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .landing-desc4 {
+            animation: fadeIn 1s ease forwards;
+            opacity: 0;
+            animation-delay: 1.4s;
+        }
+        
+        /* Floating Birthday Elements */
+        .floating-elements {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+        
+        .floating-element {
+            position: absolute;
+            font-size: 2rem;
+            animation: float 6s ease-in-out infinite;
+            opacity: 0.7;
+        }
+        
+        .floating-element:nth-child(1) { left: 10%; animation-delay: 0s; animation-duration: 8s; }
+        .floating-element:nth-child(2) { left: 20%; animation-delay: 1s; animation-duration: 7s; }
+        .floating-element:nth-child(3) { left: 30%; animation-delay: 2s; animation-duration: 9s; }
+        .floating-element:nth-child(4) { left: 70%; animation-delay: 3s; animation-duration: 6s; }
+        .floating-element:nth-child(5) { left: 80%; animation-delay: 4s; animation-duration: 8s; }
+        .floating-element:nth-child(6) { left: 90%; animation-delay: 5s; animation-duration: 7s; }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
+            10% { opacity: 0.7; }
+            90% { opacity: 0.7; }
+            100% { transform: translateY(-100px) rotate(360deg); opacity: 0; }
+        }
+    </style>
+    <!-- Google Fonts for Poppins and Playfair Display -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;700;800&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+    <!-- Canvas Confetti CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+</head>
+<body class="landing">
+    <div class="landing-title">HAPPY BIRTHDAY  KTG💅</div>
+    <div class="landing-desc3">
+        OHK SO AGYI 18TH JULY || HNN SO APKE IS BIRTHDAY PR MAI MILKE TOH WISH NHI KR SAKTA|| SO LEMME WISH YOU IN MY CODING STYLE || I HOPE U WILL LIKE IT AND THIS SITE GIVES U A LITTLE SMILE ON UR FIRST FEW MINUTES OF TURNING 20||LESS GO KTG💅||
+    </div>
+    <div class="landing-desc4" style="font-size:1.15rem;color:#1976d2;margin-bottom:18px;font-family:'Poppins','Segoe UI',Arial,sans-serif;max-width:600px;margin-left:auto;margin-right:auto;">Ready to see the surprise?</div>
+    <a href="birthday.html" class="landing-btn">Enter the Celebration 🐧</a>
+    <script>
+    // Fire confetti on page load
+    window.addEventListener('DOMContentLoaded', function() {
+      confetti({
+        particleCount: 120,
+        spread: 90,
+        origin: { y: 0.6 },
+        colors: ['#FFD700', '#FF69B4', '#87CEEB', '#1976d2', '#fff']
+      });
+
+      // Fire confetti on every button click
+      document.querySelectorAll('.landing-btn').forEach(function(btn) {
+        btn.addEventListener('click', function(e) {
+          confetti({
+            particleCount: 120,
+            spread: 90,
+            origin: { y: 0.6 },
+            colors: ['#FFD700', '#FF69B4', '#87CEEB', '#1976d2', '#fff']
+          });
+        });
+      });
+    });
+    // Set localStorage flag for audio on next page
+    document.querySelector('.landing-btn').addEventListener('click', function() {
+      localStorage.setItem('playBirthdayAudio', 'yes');
+    });
+    </script>
+</body>
+</html> 

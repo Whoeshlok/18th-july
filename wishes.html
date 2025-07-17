@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Birthday Wishes | Your Special Day</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&family=Playfair+Display:wght@400;700&family=Dancing+Script:wght@400;700&display=swap" rel="stylesheet">
+    <!-- Canvas Confetti CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <style>
+        body {
+            background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 20px;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow-x: hidden;
+            opacity: 1;
+            animation: fadeInPage 0.8s ease-out;
+        }
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="hearts" x="0" y="0" width="20" height="20" patternUnits="userSpaceOnUse"><text x="10" y="15" font-size="12" text-anchor="middle" fill="%23ff69b4" opacity="0.1">♥</text></pattern></defs><rect width="100" height="100" fill="url(%23hearts)"/></svg>') repeat;
+            pointer-events: none;
+            z-index: 0;
+        }
+        
+        @keyframes fadeInPage {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .wishes-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(10px);
+            position: relative;
+            z-index: 2;
+        }
+
+        .wishes-title {
+            text-align: center;
+            font-size: 3rem;
+            font-weight: 800;
+            color: #e91e63;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(233, 30, 99, 0.2);
+            animation: bounceIn 1s ease-out;
+            font-family: 'Dancing Script', cursive;
+        }
+
+        .wishes-subtitle {
+            text-align: center;
+            font-size: 1.3rem;
+            color: #666;
+            margin-bottom: 40px;
+            font-style: italic;
+            animation: fadeInUp 1s ease-out 0.3s both;
+            font-family: 'Dancing Script', cursive;
+        }
+
+        .question-form {
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 30px;
+            animation: fadeInUp 1s ease-out 0.6s both;
+        }
+
+        .question-text {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #e91e63;
+            margin-bottom: 20px;
+            text-align: center;
+            font-family: 'Dancing Script', cursive;
+        }
+
+        .wishes-input {
+            width: 100%;
+            min-height: 120px;
+            padding: 20px;
+            border: 3px solid #ff9a9e;
+            border-radius: 12px;
+            font-size: 1.1rem;
+            font-family: 'Poppins', sans-serif;
+            resize: vertical;
+            transition: box-shadow 0.3s ease, background 0.3s ease, border-color 0.3s ease;
+            background: rgba(255, 255, 255, 0.9);
+            box-sizing: border-box;
+        }
+
+        .wishes-input:focus {
+            outline: none;
+            border-color: #e91e63;
+            box-shadow: 0 0 20px rgba(233, 30, 99, 0.3);
+        }
+
+        .wishes-input::placeholder {
+            color: #999;
+            font-style: italic;
+        }
+
+        .submit-btn {
+            display: block;
+            width: 100%;
+            padding: 18px;
+            background: linear-gradient(135deg, #e91e63 0%, #ff9a9e 100%);
+            color: white;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.3rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: box-shadow 0.3s ease, background 0.3s ease;
+            margin-top: 20px;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .submit-btn:hover {
+            box-shadow: 0 10px 30px rgba(233, 30, 99, 0.4);
+            background: linear-gradient(135deg, #ff9a9e 0%, #e91e63 100%);
+        }
+
+        .submit-btn:active {
+            transform: translateY(0);
+        }
+
+        .response-container {
+            display: none;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 15px;
+            padding: 30px;
+            margin-top: 30px;
+            text-align: center;
+            animation: slideInUp 0.8s ease-out;
+        }
+
+        .response-text {
+            font-size: 1.4rem;
+            color: #e91e63;
+            font-weight: 600;
+            margin-bottom: 20px;
+            line-height: 1.6;
+            font-family: 'Dancing Script', cursive;
+        }
+
+        .funny-emoji {
+            font-size: 3rem;
+            margin: 20px 0;
+        }
+
+        .continue-btn {
+            display: inline-block;
+            padding: 15px 40px;
+            background: linear-gradient(135deg, #4CAF50 0%, #66BB6A 100%);
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-top: 20px;
+            transition: box-shadow 0.3s ease, background 0.3s ease;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .continue-btn:hover {
+            box-shadow: 0 8px 25px rgba(76, 175, 80, 0.3);
+            text-decoration: none;
+            color: white;
+        }
+        
+        .screenshot-btn {
+            display: inline-block;
+            padding: 12px 30px;
+            background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+            color: white;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin: 10px 10px 10px 0;
+            cursor: pointer;
+            transition: box-shadow 0.3s ease, background 0.3s ease;
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        .screenshot-btn:hover {
+            box-shadow: 0 8px 25px rgba(99, 102, 241, 0.3);
+            background: linear-gradient(135deg, #8b5cf6 0%, #6366f1 100%);
+        }
+
+
+        @keyframes bounceIn {
+            0% { transform: scale(0.3); opacity: 0; }
+            50% { transform: scale(1.05); }
+            70% { transform: scale(0.9); }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes slideInUp {
+            from { opacity: 0; transform: translateY(50px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+            40% { transform: translateY(-10px); }
+            60% { transform: translateY(-5px); }
+        }
+
+        /* Cursor trail sparkles - DISABLED */
+        
+        /* Responsive design */
+        @media (max-width: 768px) {
+            .wishes-container {
+                margin: 20px 10px;
+                padding: 25px;
+            }
+            
+            .wishes-title {
+                font-size: 2.2rem;
+            }
+            
+            .wishes-subtitle {
+                font-size: 1.1rem;
+            }
+            
+            .question-text {
+                font-size: 1.3rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="wishes-container">
+        <h1 class="wishes-title">Birthday Wishes 🎁</h1>
+        <p class="wishes-subtitle">Tell me what your heart desires on this special day!</p>
+        
+        <div class="question-form">
+            <div class="question-text">What do you want for your birthday, KTG? ✨</div>
+            <textarea 
+                class="wishes-input" 
+                id="wishesInput" 
+                placeholder="Type your birthday wishes here... Dream big! 🌟"
+                maxlength="500"
+            ></textarea>
+            <button class="submit-btn" id="submitBtn">Submit My Wishes 🎉</button>
+        </div>
+
+        <div class="response-container" id="responseContainer">
+            <div class="funny-emoji">😅</div>
+            <div class="response-text">
+                Hehe... I can't get the things you mentioned as I don't know the backend! 😂<br>
+                But your wishes are noted Somewhere !! 💖<br>
+                <small>(Maybe next time I'll learn some backend magic! 🪄)</small>
+            </div>
+            <a href="index.html" class="continue-btn">Once Again Happy Birthday KTG 🐧</a>
+        </div>
+    </div>
+
+    <script>
+        // Fire confetti on page load
+        window.addEventListener('DOMContentLoaded', function() {
+            confetti({
+                particleCount: 100,
+                spread: 70,
+                origin: { y: 0.6 },
+                colors: ['#ff69b4', '#ff9a9e', '#fecfef', '#e91e63', '#fff']
+            });
+        });
+
+        // Handle form submission
+        document.getElementById('submitBtn').addEventListener('click', function() {
+            const input = document.getElementById('wishesInput');
+            const responseContainer = document.getElementById('responseContainer');
+            const questionForm = document.querySelector('.question-form');
+            
+            if (input.value.trim() === '') {
+                // Shake animation for empty input
+                input.style.animation = 'shake 0.5s';
+                setTimeout(() => {
+                    input.style.animation = '';
+                }, 500);
+                return;
+            }
+            
+            // Hide the form and show response
+            questionForm.style.display = 'none';
+            responseContainer.style.display = 'block';
+            
+            // Fire confetti
+            confetti({
+                particleCount: 120,
+                spread: 90,
+                origin: { y: 0.6 },
+                colors: ['#ff69b4', '#ff9a9e', '#fecfef', '#e91e63', '#fff']
+            });
+            
+            // Multiple confetti bursts
+            setTimeout(() => {
+                confetti({
+                    particleCount: 80,
+                    spread: 60,
+                    origin: { y: 0.7 },
+                    colors: ['#ff69b4', '#ff9a9e', '#fecfef', '#e91e63', '#fff']
+                });
+            }, 500);
+        });
+
+        // Add shake animation for empty input
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes shake {
+                0%, 100% { transform: translateX(0); }
+                10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
+                20%, 40%, 60%, 80% { transform: translateX(5px); }
+            }
+        `;
+        document.head.appendChild(style);
+
+        // Character counter (optional)
+        const input = document.getElementById('wishesInput');
+        input.addEventListener('input', function() {
+            const remaining = 500 - this.value.length;
+            if (remaining < 50) {
+                this.style.borderColor = remaining < 10 ? '#ff5252' : '#ff9800';
+            } else {
+                this.style.borderColor = '#ff9a9e';
+            }
+        });
+        
+        // Cursor trail sparkles - DISABLED to fix shaking
+        // const sparkles = ['✨', '⭐', '💫', '🌟', '💖', '💕'];
+        // let mouseX = 0, mouseY = 0;
+        // 
+        // document.addEventListener('mousemove', function(e) {
+        //     mouseX = e.clientX;
+        //     mouseY = e.clientY;
+        //     
+        //     // Create sparkle every few pixels moved
+        //     if (Math.random() < 0.1) {
+        //         createSparkle(mouseX, mouseY);
+        //     }
+        // });
+        // 
+        // function createSparkle(x, y) {
+        //     const sparkle = document.createElement('div');
+        //     sparkle.className = 'sparkle';
+        //     sparkle.textContent = sparkles[Math.floor(Math.random() * sparkles.length)];
+        //     sparkle.style.left = x + 'px';
+        //     sparkle.style.top = y + 'px';
+        //     
+        //     document.body.appendChild(sparkle);
+        //     
+        //     // Remove sparkle after animation
+        //     setTimeout(() => {
+        //         if (sparkle.parentNode) {
+        //             sparkle.parentNode.removeChild(sparkle);
+        //         }
+        //     }, 1000);
+        // }
+        
+        // Typing sound effect (using Web Audio API)
+        let audioContext;
+        let isTyping = false;
+        
+        function playTypingSound() {
+            if (!audioContext) {
+                audioContext = new (window.AudioContext || window.webkitAudioContext)();
+            }
+            
+            const oscillator = audioContext.createOscillator();
+            const gainNode = audioContext.createGain();
+            
+            oscillator.connect(gainNode);
+            gainNode.connect(audioContext.destination);
+            
+            oscillator.frequency.setValueAtTime(800 + Math.random() * 200, audioContext.currentTime);
+            oscillator.type = 'sine';
+            
+            gainNode.gain.setValueAtTime(0.1, audioContext.currentTime);
+            gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.1);
+            
+            oscillator.start(audioContext.currentTime);
+            oscillator.stop(audioContext.currentTime + 0.1);
+        }
+        
+        // Add typing sound to textarea
+        input.addEventListener('input', function() {
+            if (Math.random() < 0.7) { // Don't play sound on every keystroke
+                playTypingSound();
+            }
+        });
+        
+        // Screenshot functionality
+        document.getElementById('screenshotBtn').addEventListener('click', function() {
+            // Simple screenshot using html2canvas (we'll implement a basic version)
+            const responseContainer = document.getElementById('responseContainer');
+            
+            // Create a canvas to capture the content
+            const canvas = document.createElement('canvas');
+            const ctx = canvas.getContext('2d');
+            
+            // Set canvas size
+            const rect = responseContainer.getBoundingClientRect();
+            canvas.width = rect.width * 2; // Higher resolution
+            canvas.height = rect.height * 2;
+            
+            // Scale context for better quality
+            ctx.scale(2, 2);
+            
+            // Draw background
+            const gradient = ctx.createLinearGradient(0, 0, 0, rect.height);
+            gradient.addColorStop(0, '#ff9a9e');
+            gradient.addColorStop(1, '#fecfef');
+            ctx.fillStyle = gradient;
+            ctx.fillRect(0, 0, rect.width, rect.height);
+            
+            // Draw rounded rectangle background
+            ctx.fillStyle = 'rgba(255, 255, 255, 0.9)';
+            ctx.roundRect = function(x, y, width, height, radius) {
+                ctx.beginPath();
+                ctx.moveTo(x + radius, y);
+                ctx.lineTo(x + width - radius, y);
+                ctx.quadraticCurveTo(x + width, y, x + width, y + radius);
+                ctx.lineTo(x + width, y + height - radius);
+                ctx.quadraticCurveTo(x + width, y + height, x + width - radius, y + height);
+                ctx.lineTo(x + radius, y + height);
+                ctx.quadraticCurveTo(x, y + height, x, y + height - radius);
+                ctx.lineTo(x, y + radius);
+                ctx.quadraticCurveTo(x, y, x + radius, y);
+                ctx.closePath();
+                ctx.fill();
+            };
+            
+            ctx.roundRect(30, 30, rect.width - 60, rect.height - 60, 15);
+            
+            // Draw text
+            ctx.fillStyle = '#e91e63';
+            ctx.font = 'bold 24px Poppins, sans-serif';
+            ctx.textAlign = 'center';
+            ctx.fillText('😅', rect.width / 2, 100);
+            
+            ctx.fillStyle = '#e91e63';
+            ctx.font = '16px Poppins, sans-serif';
+            ctx.textAlign = 'center';
+            const text = 'Hehe... I can\'t get the things you mentioned\nas I don\'t know the backend! 😂';
+            const lines = text.split('\n');
+            lines.forEach((line, index) => {
+                ctx.fillText(line, rect.width / 2, 150 + (index * 25));
+            });
+            
+            ctx.fillText('But your wishes are noted Somewhere !!', rect.width / 2, 200);
+            
+            // Download the image
+            const link = document.createElement('a');
+            link.download = 'birthday-wishes-memory.png';
+            link.href = canvas.toDataURL();
+            link.click();
+            
+            // Show success message
+            const successMsg = document.createElement('div');
+            successMsg.innerHTML = '📸 Screenshot saved! 💖';
+            successMsg.style.position = 'fixed';
+            successMsg.style.top = '20px';
+            successMsg.style.right = '20px';
+            successMsg.style.background = 'rgba(76, 175, 80, 0.9)';
+            successMsg.style.color = 'white';
+            successMsg.style.padding = '10px 20px';
+            successMsg.style.borderRadius = '20px';
+            successMsg.style.zIndex = '10000';
+            successMsg.style.fontFamily = 'Poppins, sans-serif';
+            document.body.appendChild(successMsg);
+            
+            setTimeout(() => {
+                if (successMsg.parentNode) {
+                    successMsg.parentNode.removeChild(successMsg);
+                }
+            }, 3000);
+        });
+    </script>
+</body>
+</html>

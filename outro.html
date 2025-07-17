@@ -1,0 +1,590 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Your Beautiful Memories 💕</title>
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+      font-family: 'Poppins', sans-serif;
+      margin: 0;
+      padding: 20px;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      position: relative;
+      overflow-x: hidden;
+    }
+    
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="hearts" x="0" y="0" width="20" height="20" patternUnits="userSpaceOnUse"><text x="10" y="15" font-size="12" text-anchor="middle" fill="%23ff69b4" opacity="0.1">♥</text></pattern></defs><rect width="100" height="100" fill="url(%23hearts)"/></svg>') repeat;
+      pointer-events: none;
+      z-index: 0;
+    }
+    
+    .main-title {
+      font-family: 'Dancing Script', cursive;
+      font-size: 3.5rem;
+      font-weight: 700;
+      color: #d63384;
+      text-align: center;
+      margin: 30px 0 10px 0;
+      text-shadow: 2px 2px 4px rgba(214, 51, 132, 0.3);
+      animation: fadeInDown 1s ease-out;
+      position: relative;
+      z-index: 2;
+    }
+    
+    .subtitle {
+      font-size: 1.2rem;
+      color: #8b5a3c;
+      text-align: center;
+      margin-bottom: 40px;
+      font-style: italic;
+      animation: fadeInUp 1s ease-out 0.3s both;
+      position: relative;
+      z-index: 2;
+    }
+    
+    .collage-container {
+      position: relative;
+      width: 100%;
+      max-width: 900px;
+      height: 700px;
+      margin: 0 auto 40px auto;
+      background: rgba(255, 255, 255, 0.2);
+      border-radius: 20px;
+      backdrop-filter: blur(10px);
+      box-shadow: 0 15px 50px rgba(0, 0, 0, 0.1);
+      overflow: hidden;
+      animation: slideInUp 1s ease-out 0.6s both;
+      z-index: 2;
+    }
+    
+    .photo {
+      position: absolute;
+      border-radius: 15px;
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+      border: 4px solid #fff;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      cursor: pointer;
+      background: #fff;
+      z-index: 3;
+    }
+    
+    .photo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 11px;
+      display: block;
+    }
+    
+    .photo:hover {
+      transform: scale(1.05) rotate(0deg) !important;
+      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+      z-index: 10;
+    }
+    
+    .photo::after {
+      content: '';
+      position: absolute;
+      top: -5px;
+      left: -5px;
+      right: -5px;
+      bottom: -5px;
+      background: linear-gradient(45deg, #ff6b6b, #feca57, #48dbfb, #ff9ff3);
+      border-radius: 20px;
+      z-index: -1;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+    
+    .photo:hover::after {
+      opacity: 0.7;
+    }
+    
+    .photo-caption {
+      position: absolute;
+      bottom: -30px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(255, 255, 255, 0.9);
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-family: 'Dancing Script', cursive;
+      font-size: 1.1rem;
+      font-weight: 500;
+      color: #d63384;
+      white-space: nowrap;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      opacity: 0;
+      transform: translateX(-50%) translateY(10px);
+      transition: all 0.3s ease;
+      pointer-events: none;
+      z-index: 5;
+    }
+    
+    .photo:hover .photo-caption {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+    }
+    
+    /* Individual photo positioning */
+    .photo1 {
+      width: 180px;
+      height: 180px;
+      top: 30px;
+      left: 60px;
+      transform: rotate(-8deg);
+      animation: photoFloat1 6s ease-in-out infinite;
+    }
+    
+    .photo2 {
+      width: 160px;
+      height: 160px;
+      top: 40px;
+      right: 80px;
+      transform: rotate(12deg);
+      animation: photoFloat2 7s ease-in-out infinite;
+    }
+    
+    .photo3 {
+      width: 150px;
+      height: 150px;
+      bottom: 180px;
+      left: 30px;
+      transform: rotate(15deg);
+      animation: photoFloat3 8s ease-in-out infinite;
+    }
+    
+    .photo4 {
+      width: 170px;
+      height: 170px;
+      bottom: 120px;
+      right: 50px;
+      transform: rotate(-10deg);
+      animation: photoFloat4 6.5s ease-in-out infinite;
+    }
+    
+    .photo5 {
+      width: 155px;
+      height: 155px;
+      top: 250px;
+      left: 400px;
+      transform: rotate(5deg);
+      animation: photoFloat5 7.5s ease-in-out infinite;
+    }
+    
+    .photo6 {
+      width: 145px;
+      height: 145px;
+      top: 90px;
+      left: 280px;
+      transform: rotate(-15deg);
+      animation: photoFloat6 6.8s ease-in-out infinite;
+    }
+    
+    .photo7 {
+      width: 165px;
+      height: 165px;
+      bottom: 50px;
+      left: 180px;
+      transform: rotate(8deg);
+      animation: photoFloat7 7.2s ease-in-out infinite;
+    }
+    
+    .photo8 {
+      width: 155px;
+      height: 155px;
+      bottom: 60px;
+      left: 420px;
+      transform: rotate(-5deg);
+      animation: photoFloat8 8.5s ease-in-out infinite;
+    }
+    
+    .message-card {
+      background: rgba(255, 255, 255, 0.95);
+      border-radius: 20px;
+      padding: 40px;
+      margin: 30px 0;
+      max-width: 700px;
+      text-align: center;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+      backdrop-filter: blur(15px);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      animation: fadeInUp 1s ease-out 0.9s both;
+      position: relative;
+      z-index: 2;
+    }
+    
+    .message-text {
+      font-size: 2rem;
+      color: #5a4037;
+      line-height: 1.8;
+      margin-bottom: 20px;
+      font-weight: 400;
+      font-family: 'Dancing Script', cursive;
+    }
+    
+    .message-text strong {
+      color: #d63384;
+      font-weight: 600;
+    }
+    
+    .surprise-btn {
+      background: linear-gradient(135deg, #ff6b6b 0%, #feca57 100%);
+      color: white;
+      border: none;
+      border-radius: 50px;
+      padding: 18px 50px;
+      font-size: 1.3rem;
+      font-weight: 600;
+      font-family: 'Poppins', sans-serif;
+      cursor: pointer;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      box-shadow: 0 8px 25px rgba(255, 107, 107, 0.3);
+      animation: pulse 2s infinite;
+      position: relative;
+      z-index: 2;
+      margin-top: 20px;
+    }
+    
+    .surprise-btn:hover {
+      transform: translateY(-3px) scale(1.05);
+      box-shadow: 0 12px 35px rgba(255, 107, 107, 0.4);
+      background: linear-gradient(135deg, #feca57 0%, #ff6b6b 100%);
+    }
+    
+    .surprise-btn:active {
+      transform: translateY(-1px) scale(1.02);
+    }
+    
+    .screenshot-btn {
+      background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+      color: white;
+      border: none;
+      border-radius: 50px;
+      padding: 18px 40px;
+      font-size: 1.2rem;
+      font-weight: 600;
+      font-family: 'Poppins', sans-serif;
+      cursor: pointer;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      box-shadow: 0 8px 25px rgba(99, 102, 241, 0.3);
+      position: relative;
+      z-index: 2;
+      margin: 10px 15px 10px 0;
+      display: inline-block;
+    }
+    
+    .screenshot-btn {
+      background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+      color: white;
+      border: none;
+      border-radius: 50px;
+      padding: 18px 40px;
+      font-size: 1.2rem;
+      font-weight: 600;
+      font-family: 'Poppins', sans-serif;
+      cursor: pointer;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      box-shadow: 0 8px 25px rgba(99, 102, 241, 0.3);
+      position: relative;
+      z-index: 2;
+      margin: 10px 15px 10px 0;
+      display: inline-block;
+    }
+    
+    .screenshot-btn:hover {
+      transform: translateY(-3px) scale(1.05);
+      box-shadow: 0 12px 35px rgba(99, 102, 241, 0.4);
+      background: linear-gradient(135deg, #8b5cf6 0%, #6366f1 100%);
+    }
+    
+    .screenshot-btn:active {
+      transform: translateY(-1px) scale(1.02);
+    }
+    
+    /* Animations */
+    @keyframes fadeInDown {
+      from { opacity: 0; transform: translateY(-50px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(50px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    
+    @keyframes slideInUp {
+      from { opacity: 0; transform: translateY(100px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.02); }
+    }
+    
+    @keyframes photoFloat1 {
+      0%, 100% { transform: rotate(-8deg) translateY(0px); }
+      50% { transform: rotate(-8deg) translateY(-10px); }
+    }
+    
+    @keyframes photoFloat2 {
+      0%, 100% { transform: rotate(12deg) translateY(0px); }
+      50% { transform: rotate(12deg) translateY(-8px); }
+    }
+    
+    @keyframes photoFloat3 {
+      0%, 100% { transform: rotate(15deg) translateY(0px); }
+      50% { transform: rotate(15deg) translateY(-12px); }
+    }
+    
+    @keyframes photoFloat4 {
+      0%, 100% { transform: rotate(-10deg) translateY(0px); }
+      50% { transform: rotate(-10deg) translateY(-7px); }
+    }
+    
+    @keyframes photoFloat5 {
+      0%, 100% { transform: rotate(5deg) translateY(0px); }
+      50% { transform: rotate(5deg) translateY(-9px); }
+    }
+    
+    @keyframes photoFloat6 {
+      0%, 100% { transform: rotate(-15deg) translateY(0px); }
+      50% { transform: rotate(-15deg) translateY(-11px); }
+    }
+    
+    @keyframes photoFloat7 {
+      0%, 100% { transform: rotate(8deg) translateY(0px); }
+      50% { transform: rotate(8deg) translateY(-6px); }
+    }
+    
+    @keyframes photoFloat8 {
+      0%, 100% { transform: rotate(-5deg) translateY(0px); }
+      50% { transform: rotate(-5deg) translateY(-8px); }
+    }
+    
+    /* Responsive design */
+    @media (max-width: 768px) {
+      .main-title {
+        font-size: 2.5rem;
+      }
+      
+      .collage-container {
+        height: 500px;
+        margin: 0 20px 40px 20px;
+      }
+      
+      .photo {
+        width: 100px !important;
+        height: 100px !important;
+      }
+      
+      .photo1 { top: 20px; left: 20px; }
+      .photo2 { top: 30px; right: 30px; }
+      .photo3 { bottom: 180px; left: 15px; }
+      .photo4 { bottom: 160px; right: 25px; }
+      .photo5 { top: 200px; left: 140px; }
+      .photo6 { top: 120px; left: 90px; }
+      .photo7 { bottom: 80px; left: 60px; }
+      .photo8 { bottom: 90px; left: 180px; }
+      
+      .message-card {
+        margin: 30px 20px;
+        padding: 25px;
+      }
+      
+      .message-text {
+        font-size: 1.1rem;
+      }
+      
+      .surprise-btn {
+        font-size: 1.1rem;
+        padding: 15px 35px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <h1 class="main-title">Your Beautiful Memories 💕</h1>
+  <p class="subtitle">Every moment captured, every smile treasured</p>
+  
+  <div class="collage-container">
+    <div class="photo photo1">
+      <img src="kash-images/1.jpg" alt="Sweet Memory 1">
+      <div class="photo-caption">Sweet childhood 💕</div>
+    </div>
+    <div class="photo photo2">
+      <img src="kash-images/2.jpg" alt="Sweet Memory 2">
+      <div class="photo-caption">Growing up ✨</div>
+    </div>
+    <div class="photo photo3">
+      <img src="kash-images/3.jpg" alt="Sweet Memory 3">
+      <div class="photo-caption">Happy times 🌟</div>
+    </div>
+    <div class="photo photo4">
+      <img src="kash-images/4.jpg" alt="Sweet Memory 4">
+      <div class="photo-caption">Cute Shubham Bhaii ✨</div>
+    </div>
+    <div class="photo photo5">
+      <img src="kash-images/5.jpg" alt="Sweet Memory 5">
+      <div class="photo-caption">Slay Queen 💅</div>
+    </div>
+    <div class="photo photo6">
+      <img src="kash-images/6.jpg" alt="Sweet Memory 6">
+      <div class="photo-caption">Natural 🌿</div>
+    </div>
+    <div class="photo photo7">
+      <img src="kash-images/7.jpg" alt="Sweet Memory 7">
+      <div class="photo-caption">Ek Hi Filter Hai 😶‍🌫️</div>
+    </div>
+    <div class="photo photo8">
+      <img src="kash-images/8.jpg" alt="Sweet Memory 8">
+      <div class="photo-caption">Cuteeeeeeee 😭</div>
+    </div>
+  </div>
+  
+  <div class="message-card">
+    <div class="message-text">
+      From the sweetest childhood memories to the fabulous present, your journey has been nothing short of inspiring. Every photo tells a story, every smile holds a thousand memories. 📸✨<br><br>
+      <strong>So At Last Few Words, Here I choose The Wrong College , Wrong Course , Wrong City , Wrong PG , But I found Some Special Ppls Here And You Will Be Always One Of Them</strong>
+    </div>
+    <button class="screenshot-btn" id="screenshotBtn">📸 Save This Collage</button>
+    <button class="surprise-btn" onclick="window.location.href='wishes.html'">🎁 One Last Surprise</button>
+  </div>
+  <audio id="outro-audio" src="outro.mp3" preload="auto" hidden></audio>
+  <script>
+    // Add sparkle effects when hovering over photos
+    document.querySelectorAll('.photo').forEach(photo => {
+      photo.addEventListener('mouseenter', function() {
+        // Add sparkle effect
+        const sparkles = document.createElement('div');
+        sparkles.style.position = 'absolute';
+        sparkles.style.top = '0';
+        sparkles.style.left = '0';
+        sparkles.style.width = '100%';
+        sparkles.style.height = '100%';
+        sparkles.style.pointerEvents = 'none';
+        sparkles.style.background = 'radial-gradient(circle, rgba(255,255,255,0.8) 1px, transparent 1px)';
+        sparkles.style.backgroundSize = '20px 20px';
+        sparkles.style.animation = 'sparkle 0.8s ease-out';
+        sparkles.style.borderRadius = '15px';
+        
+        this.appendChild(sparkles);
+        
+        setTimeout(() => {
+          if (sparkles.parentNode) {
+            sparkles.parentNode.removeChild(sparkles);
+          }
+        }, 800);
+      });
+    });
+    
+    // Add sparkle animation keyframes
+    const style = document.createElement('style');
+    style.textContent = `
+      @keyframes sparkle {
+        0% { opacity: 0; transform: scale(0.5); }
+        50% { opacity: 1; transform: scale(1); }
+        100% { opacity: 0; transform: scale(0.5); }
+      }
+    `;
+    document.head.appendChild(style);
+    
+    // Optional: Add click sound effect (commented out by default)
+    // document.querySelectorAll('.photo').forEach(photo => {
+    //   photo.addEventListener('click', function() {
+    //     // Play a gentle click sound if you have one
+    //   });
+    // });
+    
+    // Simple screenshot instructions
+    document.getElementById('screenshotBtn').addEventListener('click', function() {
+      // Show instruction popup
+      const popup = document.createElement('div');
+      popup.innerHTML = `
+        <div style="
+          position: fixed;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+          background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+          color: white;
+          padding: 40px;
+          border-radius: 20px;
+          z-index: 10000;
+          font-family: 'Poppins', sans-serif;
+          text-align: center;
+          box-shadow: 0 20px 60px rgba(99, 102, 241, 0.3);
+          max-width: 450px;
+          line-height: 1.6;
+        ">
+          <h3 style="margin: 0 0 20px 0; font-size: 1.5rem;">📸 Save This Collage</h3>
+          <p style="margin: 0 0 20px 0; font-size: 1.1rem;">
+            <strong>Easy ways to save:</strong><br><br>
+            🖱️ <strong>Right-click</strong> anywhere on this page<br>
+            → Select "Save as image" or "Screenshot"<br><br>
+            ⌨️ <strong>Keyboard shortcuts:</strong><br>
+            • Windows: <code>Win + Shift + S</code><br>
+            • Mac: <code>Cmd + Shift + 4</code><br>
+            • General: <code>Print Screen</code> key
+          </p>
+          <button id="closePopup" style="
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-family: 'Poppins', sans-serif;
+            margin-top: 10px;
+          ">✕ Got it!</button>
+        </div>
+      `;
+      
+      document.body.appendChild(popup);
+      
+      // Close popup functionality
+      document.getElementById('closePopup').addEventListener('click', function() {
+        if (popup.parentNode) {
+          popup.parentNode.removeChild(popup);
+        }
+      });
+      
+      // Auto-close after 20 seconds
+      setTimeout(() => {
+        if (popup.parentNode) {
+          popup.parentNode.removeChild(popup);
+        }
+      }, 20000);
+      
+      // Close on click outside
+      popup.addEventListener('click', function(e) {
+        if (e.target === popup) {
+          popup.parentNode.removeChild(popup);
+        }
+      });
+    });
+
+    // Play outro audio immediately on page load
+    window.addEventListener('DOMContentLoaded', function() {
+      var audio = document.getElementById('outro-audio');
+      audio.currentTime = 0;
+      audio.play();
+    });
+  </script>
+</body>
+</html> 
