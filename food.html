@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Crave Surprise</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="food-gallery">
+  <button class="back-btn" onclick="window.location.href='index.html'">← Back to Birthday</button>
+  <h2 class="gallery-caption">MUJHE BHEJ K CRAVE KARATI THI NA AB DEKHO!! AUR KRO CRAVE || MAZAAK ||ENJOY KRO SLIDESHOW 🤗</h2>
+
+  <!-- Carousel/Slideshow -->
+  <div class="carousel" id="carousel">
+    <button class="carousel-btn" id="prevBtn">&#8592;</button>
+    <img id="carouselImg" src="food-images/IMG_20250619_230517_503.jpg" alt="Food 1">
+    <button class="carousel-btn" id="nextBtn">&#8594;</button>
+  </div>
+
+  <audio id="food-audio" src="food.mp3" preload="auto" hidden></audio>
+
+  <div class="gallery">
+    <div class="gallery-item">
+      <img src="food-images/IMG_20250619_230517_503.jpg" alt="Food 1">
+      <div class="gallery-caption-small">Date: 2025-02-21, Time: Night</div>
+    </div>
+    <div class="gallery-item">
+      <img src="food-images/IMG_20250619_230441_224.jpg" alt="Food 2">
+      <div class="gallery-caption-small">Date: 2025-03-09, Time: Night</div>
+    </div>
+    <div class="gallery-item">
+      <img src="food-images/IMG_20250619_230429_874.jpg" alt="Food 3">
+      <div class="gallery-caption-small">Date: 2025-03-13, Time: Night</div>
+    </div>
+    <div class="gallery-item">
+      <img src="food-images/IMG_20250619_230307_881.jpg" alt="Food 4">
+      <div class="gallery-caption-small">Date: 2025-05-10, Time: Night</div>
+    </div>
+    <div class="gallery-item">
+      <img src="food-images/IMG_20250619_230255_854.jpg" alt="Food 5">
+      <div class="gallery-caption-small">Date: 2025-05-12, Time: Evening</div>
+    </div>
+    <div class="gallery-item">
+      <img src="food-images/IMG_20250619_230251_062.jpg" alt="Food 6">
+      <div class="gallery-caption-small">Date: 2025-05-15, Time: Evening</div>
+    </div>
+    <div class="gallery-item">
+      <img src="food-images/IMG_20250619_230202_876.jpg" alt="Food 7">
+      <div class="gallery-caption-small">Date: 2025-05-18, Time: Evening</div>
+    </div>
+    <div class="gallery-item">
+      <img src="food-images/IMG_20250619_230158_867.jpg" alt="Food 8">
+      <div class="gallery-caption-small">Date: 2025-06-08, Time: Evening</div>
+    </div>
+    <div class="gallery-item">
+      <img src="food-images/IMG_20250619_230154_657.jpg" alt="Food 9">
+      <div class="gallery-caption-small">Date: 2025-06-08, Time: Night</div>
+    </div>
+    <div class="gallery-item">
+      <img src="food-images/IMG_20250619_230151_451.jpg" alt="Food 10">
+      <div class="gallery-caption-small">Date: 2025-06-08, Time: Night</div>
+    </div>
+    <div class="gallery-item">
+      <img src="food-images/IMG_20250619_230145_618.jpg" alt="Food 11">
+      <div class="gallery-caption-small">Date: 2025-06-16, Time: Night</div>
+    </div>
+    <div class="gallery-item">
+      <img src="food-images/IMG-20250513-WA0036.jpg" alt="Food 12">
+      <div class="gallery-caption-small">Date: 2025-05-13, Time: Night</div>
+    </div>
+    <div class="gallery-item">
+      <img src="food-images/IMG-20250513-WA0033.jpg" alt="Food 13">
+      <div class="gallery-caption-small">Date: 2025-05-13, Time: Afternoon</div>
+    </div>
+    <div class="gallery-item">
+      <img src="food-images/IMG-20250604-WA0001.jpg" alt="Food 14">
+      <div class="gallery-caption-small">Date: 2025-06-04, Time: Afternoon</div>
+    </div>
+    <div class="gallery-item">
+      <img src="food-images/IMG-20250605-WA0003.jpg" alt="Food 15">
+      <div class="gallery-caption-small">Date: 2025-06-05, Time: Afternoon</div>
+    </div>
+    <div class="gallery-item">
+      <img src="food-images/IMG-20250610-WA0022.jpg" alt="Food 16">
+      <div class="gallery-caption-small">Date: 2025-06-10, Time: Afternoon</div>
+    </div>
+    <div class="gallery-item">
+      <img src="food-images/IMG-20250612-WA0007.jpg" alt="Food 17">
+      <div class="gallery-caption-small">Date: 2025-06-12, Time: Night</div>
+    </div>
+    <div class="gallery-item">
+      <img src="food-images/IMG-20250612-WA0011.jpg" alt="Food 18">
+      <div class="gallery-caption-small">Date: 2025-06-12, Time: Night</div>
+    </div>
+    <div class="gallery-item">
+      <img src="food-images/IMG-20250612-WA0027.jpg" alt="Food 19">
+      <div class="gallery-caption-small">Date: 2025-06-12, Time: Night</div>
+    </div>
+    <div class="gallery-item">
+      <img src="food-images/IMG-20250613-WA0010.jpg" alt="Food 20">
+      <div class="gallery-caption-small">Date: 2025-06-13, Time: Night</div>
+    </div>
+  </div>
+
+  <script>
+    // Carousel logic
+    const carouselImages = [
+      'food-images/IMG_20250619_230517_503.jpg',
+      'food-images/IMG_20250619_230441_224.jpg',
+      'food-images/IMG_20250619_230429_874.jpg',
+      'food-images/IMG_20250619_230307_881.jpg',
+      'food-images/IMG_20250619_230255_854.jpg',
+      'food-images/IMG_20250619_230251_062.jpg',
+      'food-images/IMG_20250619_230202_876.jpg',
+      'food-images/IMG_20250619_230158_867.jpg',
+      'food-images/IMG_20250619_230154_657.jpg',
+      'food-images/IMG_20250619_230151_451.jpg',
+      'food-images/IMG_20250619_230145_618.jpg',
+      'food-images/IMG-20250513-WA0036.jpg',
+      'food-images/IMG-20250513-WA0033.jpg',
+      'food-images/IMG-20250604-WA0001.jpg',
+      'food-images/IMG-20250605-WA0003.jpg',
+      'food-images/IMG-20250610-WA0022.jpg',
+      'food-images/IMG-20250612-WA0007.jpg',
+      'food-images/IMG-20250612-WA0011.jpg',
+      'food-images/IMG-20250612-WA0027.jpg',
+      'food-images/IMG-20250613-WA0010.jpg'
+    ];
+    let current = 0;
+    const carouselImg = document.getElementById('carouselImg');
+    const prevBtn = document.getElementById('prevBtn');
+    const nextBtn = document.getElementById('nextBtn');
+    let autoSlideTimer;
+
+    function showImage(idx, direction = 1) {
+      carouselImg.classList.remove('fade-in');
+      carouselImg.classList.add('fade-out');
+      setTimeout(() => {
+        carouselImg.src = carouselImages[idx];
+        carouselImg.classList.remove('fade-out');
+        carouselImg.classList.add('fade-in');
+      }, 400);
+    }
+
+    function goToPrev() {
+      current = (current - 1 + carouselImages.length) % carouselImages.length;
+      showImage(current, -1);
+      resetAutoSlide();
+    }
+    function goToNext() {
+      current = (current + 1) % carouselImages.length;
+      showImage(current, 1);
+      resetAutoSlide();
+    }
+    prevBtn.onclick = goToPrev;
+    nextBtn.onclick = goToNext;
+
+    function autoSlide() {
+      goToNext();
+      autoSlideTimer = setTimeout(autoSlide, 2500);
+    }
+    function resetAutoSlide() {
+      clearTimeout(autoSlideTimer);
+      autoSlideTimer = setTimeout(autoSlide, 2500);
+    }
+    // Start auto-slide
+    autoSlideTimer = setTimeout(autoSlide, 2500);
+    // Initial fade-in
+    carouselImg.classList.add('fade-in');
+  </script>
+
+  <!-- Image Modal -->
+  <div id="imgModal" class="img-modal" style="display:none;">
+    <span class="img-modal-close" id="imgModalClose">&times;</span>
+    <img class="img-modal-content" id="imgModalImg" src="" alt="Food Large">
+  </div>
+
+  <script>
+    // Modal logic for gallery images
+    const modal = document.getElementById('imgModal');
+    const modalImg = document.getElementById('imgModalImg');
+    const modalClose = document.getElementById('imgModalClose');
+    document.querySelectorAll('.gallery-item img').forEach(img => {
+      img.addEventListener('click', function() {
+        modal.style.display = 'flex';
+        modalImg.src = this.src;
+        modalImg.alt = this.alt;
+      });
+    });
+    modalClose.addEventListener('click', function() {
+      modal.style.display = 'none';
+      modalImg.src = '';
+    });
+    modal.addEventListener('click', function(e) {
+      if (e.target === modal) {
+        modal.style.display = 'none';
+        modalImg.src = '';
+      }
+    });
+  </script>
+
+  <script>
+    // Play food audio if coming from birthday.html
+    window.addEventListener('DOMContentLoaded', function() {
+      if (localStorage.getItem('playFoodAudio') === 'yes') {
+        var audio = document.getElementById('food-audio');
+        audio.currentTime = 0;
+        audio.play();
+        localStorage.removeItem('playFoodAudio');
+      }
+    });
+    // Set localStorage flag for game audio on LET'S PLAY! button click
+    document.querySelector('.lets-play-btn').addEventListener('click', function() {
+      localStorage.setItem('playGameAudio', 'yes');
+    });
+  </script>
+
+  <div class="lets-play-prompt">You wanna play a game?</div>
+  <button class="lets-play-btn" onclick="window.location.href='game.html'">LET'S PLAY!</button>
+</body>
+</html> 
